@@ -1,0 +1,19 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "jsx": "react-jsx", // Use "react" for older React versions or "react-jsx" for React 17+
+    "target": "esnext",    // Ensures support for modern JavaScript features
+    "module": "esnext", // Required for modern module support
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true, // Ensures compatibility with CommonJS modules
+    "moduleResolution": "node", // Resolves modules in Node.js style
+    "skipLibCheck": true, // Skips type checking of all declaration files
+    "baseUrl": "./",     // Set base directory for imports
+    "paths": {           // Optional: Set alias for better import paths
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"],     // Ensures TypeScript processes the source folder
+  "exclude": ["node_modules"] // Excludes node_modules
+
+}
