@@ -16,6 +16,8 @@
   "dependencies": {
     "@tanstack/react-query": "^5.64.1",
     "axios": "^1.7.9",
+    "axios-mock-adapter": "^2.1.0",
+    "dotenv": "^16.4.7",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -83,6 +85,9 @@
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },
-    "extensionsToTreatAsEsm": [".ts", ".tsx"]
+    "extensionsToTreatAsEsm": [
+      ".ts",
+      ".tsx"
+    ]
   }
 }

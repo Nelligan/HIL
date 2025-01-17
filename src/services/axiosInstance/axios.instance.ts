@@ -1,5 +1,11 @@
 import axios from 'axios'
-const API_KEY: string | undefined = import.meta.env.VITE_GIPHYKEY
+/**
+ * I want to use the .env for the API KEY ( for some reason I cant test using => import.meta.env.VITE_GIPHYKEY )
+ * So I am hard coding for now & ask if you guys can do it :) 
+ * I have tried everything but can't seem to get it to work. I wouldn't put this to prod as it exposes the API KEY 
+ * It sould be in the .env file
+ */
+const API_KEY: string | undefined = 'xtjHGY36XFLzLogfPdUnavy1a12nyeMI'
 const API_URL: string = 'https://api.giphy.com/v1/gifs'
 if (!API_KEY) {
     throw new Error('API_KEY is not set. Please check your .env file.');
@@ -25,7 +31,7 @@ axiosInstance.interceptors.request.use(
         return config
     },
     (error) => {
-        console.error('Request Error:', error)
+        console.error('Request Error:', error.message)
         return Promise.reject(error)
     }
 )
@@ -36,7 +42,7 @@ axiosInstance.interceptors.response.use(
         return response
     },
     (error) => {
-        console.error('Response Error:', error.response?.data || error.message)
+        console.error('Response Error:', error.message)
         return Promise.reject(error)
     }
 )

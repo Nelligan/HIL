@@ -39,7 +39,7 @@ const TrendingGifs: React.FC<HIL> = React.memo(({gifs, isLoading, isError}: HIL)
     gifs.length === 0 ? <div>No gifs found</div> :
 
 (
-<div className="grid-wrapper">
+            <div data-testid="trending-gifs" className="grid-wrapper">
 
     <Grid
     ref={gridRef}

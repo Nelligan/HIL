@@ -5,6 +5,7 @@
     "target": "esnext",    // Ensures support for modern JavaScript features
     "module": "esnext", // Required for modern module support
     "esModuleInterop": true,
+    "lib": ["dom", "esnext"],
     "allowSyntheticDefaultImports": true, // Ensures compatibility with CommonJS modules
     "moduleResolution": "node", // Resolves modules in Node.js style
     "skipLibCheck": true, // Skips type checking of all declaration files
@@ -13,7 +14,7 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"],     // Ensures TypeScript processes the source folder
+  "include": ["src", "vite.config.ts"],     // Ensures TypeScript processes the source folder
   "exclude": ["node_modules"] // Excludes node_modules
 
 }

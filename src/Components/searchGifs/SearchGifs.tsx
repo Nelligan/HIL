@@ -1,4 +1,5 @@
 import React from 'react'
+import './style/style.css'
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 interface HILSearchGifs {
     query: string
@@ -9,7 +10,7 @@ const SearchGifs: React.FC<HILSearchGifs> = React.memo(({query,setQuery,handleSe
     return (
       <>
           <h1>Search Gifs</h1>
-        <div style={{ marginBottom: '20px' }}>
+        <div data-testid="search-gifs" style={{ marginBottom: '20px' }}>
           <input
           data-testid="search-gifs-input"
           id="searchGif"
@@ -17,9 +18,9 @@ const SearchGifs: React.FC<HILSearchGifs> = React.memo(({query,setQuery,handleSe
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for GIFs"
-            style={{ padding: '10px', width: '300px', marginRight: '10px' }}
+            className='search-input'
           />
-          <button data-testid="search-gifs-btn" disabled={!query.trim()} onClick={handleSearch} style={{ padding: '10px 20px' }}>
+          <button data-testid="search-gifs-btn" disabled={!query.trim()} onClick={handleSearch} className='search-btn' >
             Search
           </button>
         </div>
