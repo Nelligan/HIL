@@ -1,11 +1,11 @@
 import React from 'react'
 import './style/style.css'
-type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
-interface HILSearchGifs {
-    query: string
-    setQuery: SetState<string>
-    handleSearch: () => void
-}
+import { HILSearchGifs } from './Types/HILSearchTypes'
+
+/**
+ * we can split the input && the button into components and reuse them where ever.
+ * We can use storybook to build out a component lib
+ */
 const SearchGifs: React.FC<HILSearchGifs> = React.memo(({query,setQuery,handleSearch}: HILSearchGifs) => {
     return (
       <>

@@ -8,6 +8,10 @@ interface HIL {
     isLoading: boolean
     isError: boolean
 }
+
+/**
+ * Further development, we can provide custom componets for the Loading,Error && no gifs found
+ */
 const TrendingGifs: React.FC<HIL> = React.memo(({gifs, isLoading, isError}: HIL) => {
     const gridRef = useRef<Grid>(null);
     const getItemHeight = useCallback(() => 200, []); // Example: Fixed height for each row
