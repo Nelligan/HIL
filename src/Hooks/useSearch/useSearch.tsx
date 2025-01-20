@@ -4,28 +4,25 @@ import { searchGiphyService } from '../../services/searchGiphyService/searchGiph
 import { debounce } from 'lodash';
 
 const useSearch = () => {
-      const [query, setQuery] = useState<string>("")
-      const [isSearching, setIsSearching] = useState<boolean>(false)
-      const [debouncedQuery, setDebouncedQuery] = useState<string>(query);
-    
-      useEffect(() => {
-        const handler = debounce((val: string) => setDebouncedQuery(val), 300);
-        handler(query);
-        return () => handler.cancel(); 
-      }, [query]);
+  const [query, setQuery] = useState<string>("");
+  const [debouncedQuery, setDebouncedQuery] = useState<string>(query);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
-      const fetchCallback = useCallback(() => {
-        if(query) setIsSearching(true)
-        if(!query) setIsSearching(false)
-         
-        return isSearching && debouncedQuery ? searchGiphyService(debouncedQuery) : getTrendingGifs(20, 0);
-      }, [isSearching, debouncedQuery, query]);
+  // Debounce query update
+  useEffect(() => {
+    const handler = debounce((val: string) => setDebouncedQuery(val), 300);
+    handler(query);
+    return () => handler.cancel();
+  }, [query]);
 
-      const handleSearch = () => { 
-        setIsSearching(true)
-       
-      };
-  return {query,setQuery,isSearching,setIsSearching, fetchCallback, handleSearch}
+  const fetchCallback = useCallback(() => {
+    // Determine whether searching or trending based on query
+    if (!query) return getTrendingGifs(20, 0);
+    setIsSearching(true);
+    return searchGiphyService(debouncedQuery);
+  }, [query, debouncedQuery]);
+
+  return { query, setQuery, isSearching, setIsSearching, fetchCallback };
 }
 
 export default useSearch

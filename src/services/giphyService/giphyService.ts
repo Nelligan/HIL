@@ -1,4 +1,5 @@
 import axiosInstance from "../axiosInstance/axios.instance";
+import { errorMessages } from "../Error/error.messages";
 import { HILGifData } from "../sharedTypes";
 
 
@@ -9,7 +10,6 @@ export const getTrendingGifs = async (limit = 25, offset = 0): Promise<HILGifDat
         })
         return response.data.data
     }catch(error){
-        console.error("Error fetching Gifs", error)
-        throw new Error('Failed to get the gifs')
+        errorMessages(error)
     }
 }

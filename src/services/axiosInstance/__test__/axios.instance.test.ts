@@ -19,7 +19,7 @@ describe('Axios Instance', () => {
         /**
          * once I can figure out how to test the import.meta the API is hardcoded
          */
-        expect(config.params.api_key).toBe('xtjHGY36XFLzLogfPdUnavy1a12nyeMI');
+        expect(config.params.api_key).toBe('Jaxqrkut5V42pfzqAR2PDgUapeqrQDpd');
     });
 
     it('should log request details via request interceptor', async () => {

@@ -1,6 +1,7 @@
 import { searchGiphyService } from '../searchGiphyService';  // Adjust path accordingly
 import axiosInstance from '../../axiosInstance/axios.instance';
 import { HILGifData } from '../../sharedTypes';
+import { errorMessages } from '../../Error/error.messages';
 
 // Mocking axiosInstance
 jest.mock('../../axiosInstance/axios.instance');
@@ -48,25 +49,52 @@ describe('searchGiphyService', () => {
         });
     });
 
-    it('should throw an error if the API call fails', async () => {
-        // Spy on console.error to suppress the error log
+    it('should handle API errors correctly', () => {
+    // Mock console.error
         const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
 
-        // Mocking the axiosInstance.get method to reject with an error
-        (axiosInstance.get as jest.Mock).mockRejectedValueOnce(new Error('Failed to fetch'));
+        // Mocking an API error response
+        const error = {
+            response: {
+                status: 404,
+                statusText: 'Not Found',
+                data: { message: 'Resource not found' },
+                config: { url: '/test' },
+            },
+        };
 
-        // Awaiting and asserting that it throws the correct error
-        await expect(searchGiphyService('Lorry')).rejects.toThrow('Failed to fetch Gifs');
+        // Call the errorMessages function
+        const result = errorMessages(error);
 
-        // Ensure axiosInstance.get was called with the correct parameters
-        expect(axiosInstance.get).toHaveBeenCalledWith('/search', {
-            params: { q: 'Lorry' }
+        // Assert the console error was logged with the updated structure
+        expect(consoleErrorSpy).toHaveBeenCalledWith('API Error:', {
+            status: 404,
+            statusText: 'Not Found',
+            url: '/test',
+            data: error.response.data,
         });
 
-        // Ensure console.error was called with the expected error message
-        expect(consoleErrorSpy).toHaveBeenCalledWith('Error fetching Gifs', expect.anything());
+        // Assert the returned error message
+        expect(result).toBe('API Error: 404 Not Found');
 
         // Clean up the spy
         consoleErrorSpy.mockRestore();
     });
+    it('should handle network errors correctly', () => {
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+        const error = {
+            request: {},
+            message: 'Network Error',
+        };
+        expect(errorMessages(error)).toBe('Network Error: Unable to fetch data.');
+        consoleErrorSpy.mockRestore();
+    })
+    it('should handle other errors correctly', () => {
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+        const error = {
+            message: 'Unexpected Error',
+        };
+        expect(errorMessages(error)).toBe('Unexpected Error occurred.');
+        consoleErrorSpy.mockRestore();
+    })
 });

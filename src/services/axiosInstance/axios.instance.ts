@@ -5,7 +5,7 @@ import axios from 'axios'
  * I have tried everything but can't seem to get it to work. I wouldn't put this to prod as it exposes the API KEY 
  * It sould be in the .env file
  */
-const API_KEY: string | undefined = 'xtjHGY36XFLzLogfPdUnavy1a12nyeMI'
+const API_KEY: string | undefined = 'Jaxqrkut5V42pfzqAR2PDgUapeqrQDpd'
 const API_URL: string = 'https://api.giphy.com/v1/gifs'
 if (!API_KEY) {
     throw new Error('API_KEY is not set. Please check your .env file.');
